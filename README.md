@@ -1,10 +1,10 @@
-Testes Automatizados com Java e Selenium
+# Testes Automatizados com Java e Selenium
 
-📌 Descrição
+## 📌 Descrição
 
 Este projeto contém testes automatizados utilizando Java e Selenium WebDriver para validar funcionalidades de aplicações web. Os testes incluem a automação de fluxo de navegação, interação com elementos e validações de comportamento esperado.
 
-🚀 Tecnologias Utilizadas
+## 🚀 Tecnologias Utilizadas
 
 Java - Linguagem utilizada para os testes
 
@@ -18,7 +18,7 @@ GitHub Actions - Para execução dos testes em CI/CD
 
 Extent Reports - Geração de relatórios detalhados de testes com suporte a capturas de tela
 
-💂️ Estrutura do Projeto
+## 💂️ Estrutura do Projeto
 ```
 /testejavaselenium
 │── src/test/java/
@@ -28,7 +28,7 @@ Extent Reports - Geração de relatórios detalhados de testes com suporte a cap
 │── reports/          # Relatórios gerados pelo Extent Reports
 ```
 
-🛠️ Pré-requisitos
+## 🛠️ Pré-requisitos
 
 Antes de rodar os testes, certifique-se de ter instalado:
 
@@ -39,24 +39,24 @@ Maven
 ChromeDriver ou GeckoDriver (Firefox)
 
 Para instalar as dependências, execute:
-
+```
 mvn clean install
-
-▶️ Como Executar os Testes
+```
+## ▶️ Como Executar os Testes
 
 Executar os testes via Maven:
-
+```
 mvn test
-
+```
 Executar testes especificando a classe:
-
+```
 mvn -Dtest=NomeDaClasseDeTeste test
-
-💊 Relatório de Testes
+```
+## 💊 Relatório de Testes
 
 Os relatórios de execução dos testes são gerados automaticamente na pasta target/surefire-reports e reports/ (para os relatórios visuais do Extent Reports).
 
-📣 Importância do Relatório
+## 📣 Importância do Relatório
 
 Os relatórios fornecem uma visão clara dos testes executados, incluindo:
 
@@ -67,18 +67,18 @@ Tempo de execução de cada teste
 Isso facilita a identificação de falhas e ajuda na melhoria da qualidade do software.
 
 
-🔗 Como Acessar o Relatório Extent Reports
+## 🔗 Como Acessar o Relatório Extent Reports
 
 Após executar os testes, abra o arquivo gerado:
-
+```
 reports/extent-report.html
-
-🛠️ Configuração no GitHub Actions
+```
+## 🛠️ Configuração no GitHub Actions
 
 O projeto possui um workflow configurado para executar os testes automaticamente no GitHub Actions. O workflow está localizado em:
-
+```
 .github/workflows/github_actions_selenium.yml
-
+```
 
 📝 Licença
 
