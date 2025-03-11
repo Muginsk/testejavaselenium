@@ -23,7 +23,7 @@ public class LoginTeste {
 
     @BeforeAll
     static void setupReport() {
-        // Novo método usando ExtentSparkReporter
+        // metodo usando ExtentSparkReporter
         ExtentSparkReporter spark = new ExtentSparkReporter("reports/extent-report.html");
         extent = new ExtentReports();
         extent.attachReporter(spark);
