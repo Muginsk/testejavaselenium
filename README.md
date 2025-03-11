@@ -19,7 +19,7 @@ GitHub Actions - Para execução dos testes em CI/CD
 Extent Reports - Geração de relatórios detalhados de testes com suporte a capturas de tela
 
 💂️ Estrutura do Projeto
-
+```
 /testejavaselenium
 │── src/test/java/
 │   ├── tests/        # Casos de Teste
