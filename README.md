@@ -26,6 +26,7 @@ Extent Reports - Geração de relatórios detalhados de testes com suporte a cap
 │── pom.xml           # Gerenciador de dependências Maven
 │── README.md         # Documentação do projeto
 │── reports/          # Relatórios gerados pelo Extent Reports
+```
 
 🛠️ Pré-requisitos
 
