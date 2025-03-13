@@ -44,6 +44,7 @@ jobs:
           
           if [ -z "$CHROMEDRIVER_VERSION" ]; then
             echo "No specific ChromeDriver version found. Using latest ChromeDriver."
+            CHROMEDRIVER_VERSION="LATEST_RELEASE"
           else
             echo "ChromeDriver version: $CHROMEDRIVER_VERSION"
           fi
