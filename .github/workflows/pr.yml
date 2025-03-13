@@ -32,19 +32,23 @@ jobs:
       - name: Install Google Chrome and ChromeDriver
         run: |
           sudo apt-get update -y
-          sudo apt-get upgrade -y # Garante que todos os pacotes estão atualizados
           sudo apt-get install -y google-chrome-stable
+          google-chrome --version || { echo "Google Chrome failed to install"; exit 1; }
+
           # Get Chrome version
           CHROME_VERSION=$(google-chrome --version | grep -oP '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+          echo "Chrome version: $CHROME_VERSION"
+          
           # Get the corresponding chromedriver version
           CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION")
+          echo "ChromeDriver version: $CHROMEDRIVER_VERSION"
+          
           # Download and install ChromeDriver
           wget -q "https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip" -O chromedriver.zip
           unzip chromedriver.zip
           sudo mv chromedriver /usr/local/bin/
           sudo chmod +x /usr/local/bin/chromedriver
           chromedriver --version
-          google-chrome --version
 
       - name: Install dependencies for headless Chrome
         run: |
@@ -54,9 +58,9 @@ jobs:
       - name: Set up Google Chrome as headless
         run: |
           echo "Running Chrome in headless mode"
-          export DISPLAY=:99.0
           sudo apt-get install -y xvfb
           sudo Xvfb :99 -ac &
+          export DISPLAY=:99.0
 
       - name: Run Tests with Maven
         run: mvn clean test
