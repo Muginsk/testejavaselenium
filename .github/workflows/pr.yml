@@ -6,13 +6,13 @@ on:
       - main
       - develop
       - staging
-      - Muginsk
+      - muginsk
   pull_request:
     branches:
       - main
       - develop
       - staging
-      - Muginsk
+      - muginsk
 
 jobs:
   test:
