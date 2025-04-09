@@ -3,8 +3,7 @@ package br.com.testejavaselenium.config;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-
-import java.time.Duration;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 public class DriverManager {
 
@@ -13,9 +12,15 @@ public class DriverManager {
     public static WebDriver getDriver() {
         if (driver == null) {
             WebDriverManager.chromedriver().setup();
-            driver = new ChromeDriver();
-            driver.manage().window().maximize(); // Maximiza a janela
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); // Timeout padrão
+
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--headless"); // Roda sem interface gráfica
+            options.addArguments("--disable-gpu");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-dev-shm-usage");
+            options.addArguments("--window-size=1920,1080");
+
+            driver = new ChromeDriver(options);
         }
         return driver;
     }
