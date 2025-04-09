@@ -29,16 +29,18 @@ jobs:
           java-version: '11'
           cache: 'maven'
 
-      - name: Install Google Chrome and ChromeDriver
+      - name: Install Google Chrome
         run: |
           sudo apt-get update -y
           sudo apt-get install -y google-chrome-stable
-          google-chrome --version || { echo "Google Chrome failed to install"; exit 1; }
+          google-chrome --version
 
-          CHROME_VERSION=$(google-chrome --version | grep -oP '[0-9]+' | head -1)
+      - name: Install ChromeDriver compatível
+        run: |
+          CHROME_VERSION=$(google-chrome --version | grep -oP '\d+' | head -1)
           echo "Chrome major version: $CHROME_VERSION"
 
-          CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION}")
+          CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION" || echo "114.0.5735.90") # fallback
           echo "Matching ChromeDriver version: $CHROMEDRIVER_VERSION"
 
           wget -q "https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip" -O chromedriver.zip
@@ -47,13 +49,16 @@ jobs:
           sudo chmod +x /usr/local/bin/chromedriver
           chromedriver --version
 
-      - name: Install dependencies for headless Chrome
+      - name: Instalar libs para Chrome headless
         run: |
-          sudo apt-get install -y libappindicator3-1 fonts-liberation
-          sudo apt-get install -y libxss1 libgdk-pixbuf2.0-0 libnss3 libatk-bridge2.0-0 libatk1.0-0 libcups2 libx11-xcb1 xvfb
+          sudo apt-get install -y libappindicator3-1 fonts-liberation \
+            libxss1 libgdk-pixbuf2.0-0 libnss3 libatk-bridge2.0-0 \
+            libatk1.0-0 libcups2 libx11-xcb1 xvfb
 
-      - name: Run Tests with Maven (Headless)
+      - name: Run Tests com Maven + headless
+        env:
+          CI: true  # Isso ativa o headless no seu código Java!
         run: |
-          sudo Xvfb :99 -ac &
+          sudo Xvfb :99 -ac & # roda o X virtual
           export DISPLAY=:99
           mvn clean test
