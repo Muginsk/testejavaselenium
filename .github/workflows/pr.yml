@@ -29,17 +29,16 @@ jobs:
           java-version: '11'
           cache: 'maven'
 
-      - name: Install Google Chrome and ChromeDriver
+      - name: Install Google Chrome (fixa versão estável)
         run: |
-          sudo apt-get update -y
-          sudo apt-get install -y google-chrome-stable
-          google-chrome --version || { echo "Google Chrome failed to install"; exit 1; }
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt install -y ./google-chrome-stable_current_amd64.deb
+          google-chrome --version
 
-          CHROME_VERSION=$(google-chrome --version | grep -oP '[0-9]+' | head -1)
-          echo "Chrome major version: $CHROME_VERSION"
-
-          CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION}")
-          echo "Matching ChromeDriver version: $CHROMEDRIVER_VERSION"
+      - name: Install ChromeDriver versão fixa (114)
+        run: |
+          CHROMEDRIVER_VERSION=114.0.5735.90
+          echo "Usando versão fixa do ChromeDriver: $CHROMEDRIVER_VERSION"
 
           wget -q "https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip" -O chromedriver.zip
           unzip chromedriver.zip
@@ -47,8 +46,9 @@ jobs:
           sudo chmod +x /usr/local/bin/chromedriver
           chromedriver --version
 
-      - name: Install dependencies for headless Chrome
+      - name: Instalar dependências do Chrome headless
         run: |
+          sudo apt-get update -y
           sudo apt-get install -y libappindicator3-1 fonts-liberation
           sudo apt-get install -y libxss1 libgdk-pixbuf2.0-0 libnss3 libatk-bridge2.0-0 libatk1.0-0 libcups2 libx11-xcb1 xvfb
 

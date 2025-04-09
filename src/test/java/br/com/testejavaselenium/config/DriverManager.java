@@ -14,7 +14,12 @@ public class DriverManager {
             WebDriverManager.chromedriver().setup();
 
             ChromeOptions options = new ChromeOptions();
-            //options.addArguments("--headless"); // Roda sem interface gráfica
+
+            // Detecta se está em ambiente CI (como GitHub Actions) para ativar headless automaticamente
+            if (System.getenv("CI") != null) {
+                options.addArguments("--headless=new"); // usa o modo headless moderno
+            }
+
             options.addArguments("--disable-gpu");
             options.addArguments("--no-sandbox");
             options.addArguments("--disable-dev-shm-usage");
