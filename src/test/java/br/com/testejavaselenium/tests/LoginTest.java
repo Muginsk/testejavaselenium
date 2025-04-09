@@ -1,4 +1,4 @@
-package primeiro.teste;
+package br.com.testejavaselenium;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
